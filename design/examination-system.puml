@@ -1,0 +1,142 @@
+@startuml
+package examination-context {
+    package examination <<Aggregate>> {
+        class Examination <<Aggregate Root>> {
+            id: ExaminationID
+            paper: Paper
+            answerSheet: AnswerSheet
+            createTime: LocalDateTime
+            startTime: LocalDateTime
+            dueTime: LocalDateTime
+            teacherId: String
+            --
+            {static} create(): Examination
+        }
+
+        class "Paper" as pr <<Value Object>> {
+            name: string
+            blankQuizzes: List<BlankQuiz>
+        }
+        Examination "1" *--> "1" pr
+
+        class "BlankQuiz" as bq <<Value Object>> {
+                id: String
+                number: String
+                score: int
+                teacherId: String
+                content: String
+                referenceAnswer: String
+                createTime: LocalDateTime
+                updateTime: LocalDateTime
+        }
+        pr "1" *--> "5..20" bq
+    }
+}
+
+package paper-context {
+    package blankQuiz <<Aggregate>> {
+        class BlankQuiz <<Aggregate Root>> {
+            id: BlankQuizID
+            teacherId: String
+            content: String
+            referenceAnswer: String
+            score: int
+            createTime: LocalDateTime
+            updateTime: LocalDateTime
+            --
+            {static} create(): BlankQuiz
+            delete()
+            update()
+        }
+    }
+    package paper <<Aggregate>> {
+        class Paper <<Aggregate Root>> {
+            id: PaperID
+            blankQuizzes: List<BlankQuiz>
+            teacherId: String
+            --
+            {static} assemble(): Paper
+            reassemble()
+        }
+        class "BlankQuiz" as bqp <<Value Object>> {
+            id: String
+            score: int
+        }
+        Paper "1" *--> "5..20" bqp
+    }
+}
+
+package answersheet-context {
+    package answerSheet <<Aggregate>> {
+        class AnswerSheet <<Aggregate Root>> {
+            id: AnswerSheetID
+            studentId: String
+            examinationId: String
+            score: int
+            blankQuizzes: List<BlankQuiz>
+            answerSheetItems: List<AnswerSheetItem>
+            --
+            {static} assign(): AnswerSheet
+            handIn()
+            submit()
+            review()
+        }
+
+        AnswerSheet "1" *--> "5..20" AnswerSheetItem
+        class AnswerSheetItem <<Value Object>> {
+            number: int
+            answer: String
+            score: int
+        }
+
+        class "BlankQuiz" as bqa <<Value Object>> {
+            number: String
+            answer: String
+            referenceAnswer: String
+            score: int
+        }
+        AnswerSheet "1" *--> "5..20" bqa
+    }
+}
+
+package course-context {
+    package course <<Aggregate>> {
+        class Course <<Aggregate Root>> {
+            id: CourseID
+            videoLink: String
+            examination: Examination
+            status: CourseStatusEnum
+            --
+            {static} create(): Course
+            publish()
+            update()
+        }
+
+        class "Examination" as exam <<Value Object>> {
+            id: String
+            name: String
+            description: String
+        }
+        Course "1" *--> "1" exam
+    }
+}
+
+package certification-context {
+    package certification <<Aggregate>> {
+        class Certification <<Aggregate Root>> {
+            id: CertificationID
+            studentName: String
+            course: Course
+            --
+            {static} generate(): Certification
+        }
+        class "Course" as c <<Value Object>> {
+            courseName: String
+            description: String
+        }
+        Certification "1" *--> "1" c
+    }
+}
+
+
+@enduml
