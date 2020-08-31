@@ -8,6 +8,7 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @EqualsAndHashCode(of = {"examinationId"})
 public class Examination implements Entity<Examination> {
@@ -60,7 +61,6 @@ public class Examination implements Entity<Examination> {
         }
 
         @Getter
-        @AllArgsConstructor
         public static class BlankQuiz implements ValueObject<BlankQuiz> {
             private String id;
             private String number;
@@ -70,6 +70,22 @@ public class Examination implements Entity<Examination> {
             private String referenceAnswer;
             private LocalDateTime createTime;
             private LocalDateTime updateTime;
+
+            private static String generateId() {
+                return UUID.randomUUID().toString();
+            }
+
+            public BlankQuiz(String number, int score, String teacherId, String content,
+                             String referenceAnswer, LocalDateTime createTime, LocalDateTime updateTime) {
+                this.id = generateId();
+                this.number = number;
+                this.score = score;
+                this.teacherId = teacherId;
+                this.content = content;
+                this.referenceAnswer = referenceAnswer;
+                this.createTime = createTime;
+                this.updateTime = updateTime;
+            }
 
             @Override
             public boolean sameValueAs(BlankQuiz other) {

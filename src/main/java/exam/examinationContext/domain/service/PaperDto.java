@@ -4,7 +4,9 @@ import exam.examinationContext.domain.model.examination.Examination;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor
@@ -13,8 +15,12 @@ public class PaperDto {
     private List<BlankQuiz> blankQuizzes;
 
     public static Examination.Paper toPaper(PaperDto paperDto) {
-        // TODO map PaperDto to Paper
-        return null;
+        List<Examination.Paper.BlankQuiz> blankQuizs = paperDto.getBlankQuizzes()
+                .stream()
+                .map(quiz -> new Examination.Paper.BlankQuiz(quiz.number, quiz.score, quiz.teacherId,
+                        quiz.content, quiz.referenceAnswer, LocalDateTime.now(), LocalDateTime.now()))
+                .collect(Collectors.toList());
+        return new Examination.Paper(paperDto.getName(), blankQuizs);
     }
 
     @AllArgsConstructor
