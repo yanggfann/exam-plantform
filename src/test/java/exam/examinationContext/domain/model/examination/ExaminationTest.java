@@ -32,21 +32,16 @@ class ExaminationTest {
     }
 
     private List<Examination.Paper.BlankQuiz> buildBlankQuiz() {
-        final String firstQuizId = "quiz-01";
-        final String secondQuizId = "quiz-02";
-        final String thirdQuizId = "quiz-03";
-        final String fourthQuizId = "quiz-04";
-        final String fifthQuizId = "quiz-05";
         List<Examination.Paper.BlankQuiz> blankQuizzes = Arrays.asList(
-                new Examination.Paper.BlankQuiz(firstQuizId, "1", 20, "teacher", "a",
+                new Examination.Paper.BlankQuiz("1", 20, "teacher", "a",
                         "A", LocalDateTime.now(), LocalDateTime.now()),
-                new Examination.Paper.BlankQuiz(secondQuizId, "2", 20, "teacher", "b",
+                new Examination.Paper.BlankQuiz("2", 20, "teacher", "b",
                         "B", LocalDateTime.now(), LocalDateTime.now()),
-                new Examination.Paper.BlankQuiz(thirdQuizId, "3", 20, "teacher", "c",
+                new Examination.Paper.BlankQuiz("3", 20, "teacher", "c",
                         "C", LocalDateTime.now(), LocalDateTime.now()),
-                new Examination.Paper.BlankQuiz(fourthQuizId, "4", 20, "teacher", "d",
+                new Examination.Paper.BlankQuiz("4", 20, "teacher", "d",
                         "D", LocalDateTime.now(), LocalDateTime.now()),
-                new Examination.Paper.BlankQuiz(fifthQuizId, "5", 20, "teacher", "e",
+                new Examination.Paper.BlankQuiz("5", 20, "teacher", "e",
                         "E", LocalDateTime.now(), LocalDateTime.now())
         );
         return blankQuizzes;
@@ -59,7 +54,7 @@ class ExaminationTest {
             final String examinationName = "java";
             final List<Examination.Paper.BlankQuiz> blankQuizzes = new ArrayList<>();
             for (int i = 0; i < 25; i++) {
-                blankQuizzes.add(new Examination.Paper.BlankQuiz("quiz-" + i, "1", 4, "teacher", "a",
+                blankQuizzes.add(new Examination.Paper.BlankQuiz("1", 4, "teacher", "a",
                         "A", LocalDateTime.now(), LocalDateTime.now()));
             }
 
@@ -77,7 +72,7 @@ class ExaminationTest {
             final String examinationName = "java";
             final List<Examination.Paper.BlankQuiz> blankQuizzes = new ArrayList<>();
             for (int i = 0; i < 4; i++) {
-                blankQuizzes.add(new Examination.Paper.BlankQuiz("quiz-" + i, "1", 25, "teacher", "a",
+                blankQuizzes.add(new Examination.Paper.BlankQuiz("1", 25, "teacher", "a",
                         "A", LocalDateTime.now(), LocalDateTime.now()));
             }
 
@@ -95,7 +90,7 @@ class ExaminationTest {
             final String examinationName = "java";
             final List<Examination.Paper.BlankQuiz> blankQuizzes = new ArrayList<>();
             for (int i = 0; i < 6; i++) {
-                blankQuizzes.add(new Examination.Paper.BlankQuiz("quiz-" + i, "1", 20, "teacher", "a",
+                blankQuizzes.add(new Examination.Paper.BlankQuiz("1", 20, "teacher", "a",
                         "A", LocalDateTime.now(), LocalDateTime.now()));
             }
 
