@@ -2,27 +2,33 @@ package exam.examinationContext.application;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Value;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class CreateExaminationCommand {
     private Paper paper;
 
-    @Value
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
     public static class Paper {
-        private String name;
-        private List<BlankQuiz> blankQuizzes;
+        public String name;
+        public List<BlankQuiz> blankQuizzes;
 
-        @Value
+        @NoArgsConstructor
+        @AllArgsConstructor
+        @Getter
         public static class BlankQuiz {
-            private String number;
-            private int score;
-            private String teacherId;
-            private String content;
-            private String referenceAnswer;
+            public String number;
+            public int score;
+            public String teacherId;
+            public String content;
+            public String referenceAnswer;
         }
     }
 }
